@@ -1,3 +1,6 @@
-import encodeURI from './lib/encodeURI';
+import encodeUri from './lib/encodeUri';
+import UUID from './lib/UUID';
 
-console.log(encodeURI('오호라'));
+const ohora = encodeUri('Ohora');
+console.log(decodeURIComponent(ohora));
+console.log(UUID());

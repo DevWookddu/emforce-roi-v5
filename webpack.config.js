@@ -1,7 +1,9 @@
 const path = require('path');
 
+const mode = process.env.NODE_ENV;
+
 module.exports = {
-  mode: 'development',
+  mode,
   entry: './index.js',
   output: {
     filename: 'index.js',
