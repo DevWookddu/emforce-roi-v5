@@ -1,12 +1,12 @@
-(() => {
-  const ADVERTISER_ID = 'advertiserId';
+import { ADVERTISER_ID } from './constants/Common';
 
+(() => {
   if (window.EmfV5) {
     return;
   }
-
   let advertiserId;
   const ROI = {};
+
   Object.defineProperties(ROI, {
     [ADVERTISER_ID]: {
       set(value) {
