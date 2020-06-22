@@ -4,6 +4,15 @@
     "plugin:prettier/recommended"
   ],
   "env": {
+    "amd": true,
     "browser": true
+  },
+  "rules": {
+    "no-console": ["warn", {
+      "allow": [
+        "warn",
+        "error"
+      ]
+    }]
   }
 }

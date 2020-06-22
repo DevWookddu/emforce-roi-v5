@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: './src/RoiV5.js',
+  entry: './src/index.js',
   output: {
     filename: 'emforce-roi-v5.js',
     path: path.resolve(__dirname, './dist'),
