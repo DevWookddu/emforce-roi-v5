@@ -16,6 +16,7 @@
     (function(w, d, t, s, v, e, o){
       if (w.EmfV5)return;
       v=w.EmfV5=function(){v.callMethod?v.callMethod.apply(v, arguments):v.queue.push(arguments)};
+      v.configs={};
       v.queue=[];
       e=d.createElement(t);
       e.src=s;
@@ -23,9 +24,8 @@
       o = d.getElementsByTagName(t)[0];
       o.parentNode.insertBefore(e,o);
     })(window, document, 'script', 'https://script.src/emforce-roi-v5.js');
-
-    EmfV5('init', 'hiru')
-    EmfV5('init', 'hirzu')
+    EmfV5('init', '33452');
+    EmfV5('click', '33452');
   </script>
 </head>
 <body>

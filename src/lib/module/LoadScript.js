@@ -1,17 +1,7 @@
-export default (src, callback) => {
+export default (src) => {
   const script = document.createElement('script');
   script.src = src;
   script.type = 'text/javascript';
-  script.async = false;
-  script.onload = () => {
-    if (typeof callback === 'function') {
-      callback();
-    }
-  };
-  script.onerror = () => {
-    if (typeof callback === 'function') {
-      callback();
-    }
-  };
+  script.async = true;
   document.body.appendChild(script);
 };
