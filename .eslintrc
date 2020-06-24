@@ -13,6 +13,7 @@
         "warn",
         "error"
       ]
-    }]
+    }],
+    "import/no-unresolved": "off"
   }
 }

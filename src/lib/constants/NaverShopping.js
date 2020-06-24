@@ -7,4 +7,5 @@ export default {
   [N_AD]: N_AD,
   [N_AD_GROUP]: N_AD_GROUP,
   [N_MALL_PID]: N_MALL_PID,
+  [N_CAMPAIGN_TYPE]: N_CAMPAIGN_TYPE,
 };

@@ -2,10 +2,10 @@
   "name": "emforce_roi_v5",
   "version": "0.1.0",
   "description": "eMFORCE ROI Tracking Script v5",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "dev": "webpack-dev-server --config webpack.dev.js",
-    "build": "cross-env NODE_ENV=production webpack --config webpack.prod.js"
+    "build": "cross-env NODE_ENV=production webpack --config webpack.dist.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,10 @@
     "url": "https://github.com/DevWookddu/eMFORCE_ROI_V5/issues"
   },
   "homepage": "https://github.com/DevWookddu/eMFORCE_ROI_V5#readme",
+  "dependencies": {
+    "js-cookie": "^2.2.1",
+    "query-string": "^5.1.1"
+  },
   "devDependencies": {
     "@babel/cli": "^7.10.1",
     "@babel/core": "^7.10.2",
@@ -32,6 +36,7 @@
     "eslint": "^7.2.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-config-prettier": "^6.11.0",
+    "eslint-loader": "^4.0.2",
     "eslint-plugin-import": "^2.21.2",
     "eslint-plugin-prettier": "^3.1.4",
     "html-webpack-plugin": "^4.3.0",
@@ -45,9 +50,5 @@
     "last 2 version",
     "android >= 4.4",
     "IE >= 10"
-  ],
-  "dependencies": {
-    "js-cookie": "^2.2.1",
-    "query-string": "^5.1.1"
-  }
+  ]
 }
