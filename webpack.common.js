@@ -1,9 +1,23 @@
+/* eslint-disable import/no-extraneous-dependencies */
+const webpack = require('webpack');
 const path = require('path');
+
+let filename = 'emforce-roi-v5.js';
+const plugins = [];
+const isBeta = process.env.NODE_ENV === 'beta';
+if (isBeta) {
+  filename = `beta-${filename}`;
+  plugins.push(
+    new webpack.DefinePlugin({
+      'process.env.CALL': JSON.stringify('beta'),
+    })
+  );
+}
 
 module.exports = {
   entry: './src/RoiV5.js',
   output: {
-    filename: 'emforce-roi-v5.js',
+    filename,
     path: path.resolve(__dirname, './dist'),
   },
   module: {
@@ -23,9 +37,10 @@ module.exports = {
       },
     ],
   },
+  plugins,
   resolve: {
     alias: {
-      '@@state': path.resolve(__dirname, 'src/state.js'),
+      '@@state': path.resolve(__dirname, 'src/state/state.js'),
     },
   },
 };

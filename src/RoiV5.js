@@ -1,61 +1,61 @@
 import state from '@@state';
 import init from './lib/feature/Init';
+import clickCall from './lib/feature/ClickCall';
+import errorNotify from './lib/module/ErrorNotify';
 
-const callMethod = (callType, advertiserId, args) => {
-  const scriptLoading = !!state.scriptLoading[advertiserId];
-  const loadSuccess = state.configs[advertiserId];
-  if (callType === 'init') {
-    if (loadSuccess) {
-      // 이미 로드 됨.
-      return;
-    }
-    if (!scriptLoading) {
-      state.scriptLoading[advertiserId] = true;
+const { scriptLoading, configs, queue } = state;
+
+const initScript = (callType, advertiserId, args) => {
+  const isScriptLoading = !!scriptLoading[advertiserId];
+  const isLoadedScript = configs[advertiserId];
+  if (!isLoadedScript) {
+    queue.push([callType, advertiserId, args]);
+    if (!isScriptLoading) {
+      scriptLoading[advertiserId] = true;
       init(advertiserId);
     }
-    return;
+    return false;
   }
+  return true;
+};
 
-  if (loadSuccess) {
-    state.queue.push([callType, advertiserId, args]);
-    return;
-  }
-
+const callMethod = (callType, advertiserId, args) => {
   switch (callType) {
     case 'click':
-      console.warn(333);
+      clickCall(advertiserId, args);
       break;
     default:
+      errorNotify(`'${callType}'은 존재하지 않는 전환 타입입니다.`);
   }
 };
 
 const EmfV5 = (callType, advertiserId, args) => {
-  callMethod(callType, advertiserId, args);
+  if (initScript(callType, advertiserId, args)) {
+    callMethod(callType, advertiserId, args);
+  }
 };
 
-EmfV5.callMethod = callMethod;
-
 EmfV5.loadedScript = (advertiserId) => {
-  state.configs[advertiserId] = window.EmfV5Config[advertiserId];
+  configs[advertiserId] = window.EmfV5Config[advertiserId];
   const callList = [];
   const notCallList = [];
-  state.queue.forEach((args) => {
+  queue.forEach((args) => {
     const advId = args[1];
-    if (advId === advertiserId) {
+    if (Number(advId) === Number(advertiserId)) {
       callList.push(args);
     } else {
       notCallList.push(args);
     }
   });
-  state.queue = notCallList;
+  queue.splice(0, queue.length - 1, ...notCallList);
   callList.forEach(([callType, advId, args]) => {
-    callMethod(callType, advId, args);
+    EmfV5(callType, advId, args);
   });
 };
 
 if (window && window.EmfV5 && window.EmfV5.queue) {
   window.EmfV5.queue.forEach(([callType, advertiserId, args]) => {
-    callMethod(callType, advertiserId, args);
+    EmfV5(callType, advertiserId, args);
   });
 }
 

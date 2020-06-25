@@ -4,8 +4,8 @@
   "description": "eMFORCE ROI Tracking Script v5",
   "main": "src/index.js",
   "scripts": {
-    "dev": "webpack-dev-server --config webpack.dev.js",
-    "build": "cross-env NODE_ENV=production webpack --config webpack.dist.js"
+    "dev": "cross-env NODE_ENV=beta webpack-dev-server --config webpack.dev.js",
+    "build": "cross-env NODE_ENV=production webpack --config webpack.dist.js & cross-env NODE_ENV=beta webpack --config webpack.dist.js"
   },
   "repository": {
     "type": "git",
