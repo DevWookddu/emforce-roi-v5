@@ -5,9 +5,9 @@
   window.EmfV5Config[1038] = {
     trackQueryKeyList: [
       [
-        'n_ad_group',
-        'n_ad',
-        'n_mall_pid',
+        { key: 'n_ad_group' },
+        { key: 'n_ad' },
+        { key: 'n_mall_pid' },
         { key: 'n_campaign_type', exactlyMatch: ['2'] },
       ],
     ],
