@@ -3,6 +3,7 @@
     "airbnb-base",
     "plugin:prettier/recommended"
   ],
+  "parser": "babel-eslint",
   "env": {
     "amd": true,
     "browser": true

@@ -1,6 +1,6 @@
 import state from '@@state';
 import init from './lib/feature/Init';
-import clickCall from './lib/feature/ClickCall';
+import inflowCall from './lib/feature/InflowCall';
 import errorNotify from './lib/module/ErrorNotify';
 
 const { scriptLoading, configs, queue } = state;
@@ -21,8 +21,8 @@ const initScript = (callType, advertiserId, args) => {
 
 const callMethod = (callType, advertiserId, args) => {
   switch (callType) {
-    case 'click':
-      clickCall(advertiserId, args);
+    case 'inflow':
+      inflowCall(advertiserId, args);
       break;
     default:
       errorNotify(`'${callType}'은 존재하지 않는 전환 타입입니다.`);
@@ -53,7 +53,7 @@ EmfV5.loadedScript = (advertiserId) => {
   });
 };
 
-if (window && window.EmfV5 && window.EmfV5.queue) {
+if (window?.EmfV5?.queue?.length) {
   window.EmfV5.queue.forEach(([callType, advertiserId, args]) => {
     EmfV5(callType, advertiserId, args);
   });
