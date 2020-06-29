@@ -1,6 +1,6 @@
-import jsCookie from 'js-cookie';
 import queryString from 'query-string';
 import state from '@@state';
+import { setCookie, getCookie } from '../module/HandleCookie';
 import callTrackSever from '../module/CallTrackServer';
 
 const { configs } = state;
@@ -13,14 +13,6 @@ const NONE = 'none';
 //   cookieKey: 'ekams',
 //   partialMatch: [/^\D+(\.\d+){5}$/g],
 // };
-
-const setCookie = (advertiserId, cookieKey, value) => {
-  jsCookie.set(`emf.${advertiserId}.${cookieKey}`, value, { expires: 30 });
-};
-
-const getCookie = (advertiserId, cookieKey) => {
-  return jsCookie.get(`emf.${advertiserId}.${cookieKey}`);
-};
 
 const inflowCall = (advertiserId /* , args */) => {
   const query = queryString.parse(window.location.search);
@@ -81,7 +73,7 @@ const inflowCall = (advertiserId /* , args */) => {
       // 만족할 경우 inflow 함수 호출하도록 처리.
       isCallCondition = true;
     } else {
-      // 하나라도 만족하지 않는 경우가 있다면, 모두 none 처리
+      // 하나라도 만족하지 않는 경우가 있다면, 현재 키값 모두 none 처리
       Object.keys(currentValidateQueryKey).forEach((key) => {
         currentValidateQueryKey[key] = NONE;
       });
@@ -159,7 +151,7 @@ const inflowCall = (advertiserId /* , args */) => {
       setCookie(advertiserId, cookieKey, changeCookies.join('|'));
     }
   );
-  callTrackSever('click', queryString.stringify(sendQuery));
+  callTrackSever('click', sendQuery);
 };
 
 export default inflowCall;
