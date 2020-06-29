@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import jsCookie from 'js-cookie';
 import queryString from 'query-string';
 import state from '@@state';
@@ -160,7 +159,6 @@ const inflowCall = (advertiserId /* , args */) => {
       setCookie(advertiserId, cookieKey, changeCookies.join('|'));
     }
   );
-  console.log(sendQuery);
   callTrackSever('click', queryString.stringify(sendQuery));
 };
 
