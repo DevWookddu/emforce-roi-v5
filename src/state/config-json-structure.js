@@ -15,7 +15,7 @@ export default {
     [
       { key: 'n_ad_group' },
       { key: 'n_ad' },
-      { key: 'n_mall_pid' },
+      { key: 'n_mall_pid', partialMatch: [/d+/g] },
       { key: 'n_campaign_type', exactlyMatch: ['2'] },
     ],
   ],

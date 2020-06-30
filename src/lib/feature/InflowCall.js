@@ -1,7 +1,7 @@
 import queryString from 'query-string';
 import state from '@@state';
-import { setCookie, getCookie } from '../module/HandleCookie';
-import callTrackSever from '../module/CallTrackServer';
+import { setCookie, getCookie } from '@module/HandleCookie';
+import callTrackSever from '@module/CallTrackServer';
 
 const { configs } = state;
 

@@ -1,4 +1,4 @@
-import EncodeURI from '../utils/EncodeURI';
+import EncodeURI from '@util/EncodeURI';
 
 const subDomain = process.env.CALL === 'beta' ? 'beta-' : '';
 

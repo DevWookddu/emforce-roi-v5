@@ -1,7 +1,7 @@
 import state from '@@state';
+import errorNotify from '@module/ErrorNotify';
 import init from './lib/feature/Init';
 import inflowCall from './lib/feature/InflowCall';
-import errorNotify from './lib/module/ErrorNotify';
 import './lib/polyfill/object.entries';
 import './lib/polyfill/array.prototype.find';
 import './lib/polyfill/array.prototype.includes';
