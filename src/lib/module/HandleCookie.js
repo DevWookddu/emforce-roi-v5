@@ -1,7 +1,10 @@
 import jsCookie from 'js-cookie';
 
-// .co.kr과 .kr 같은 포함관계는 순서 중요!
+// .or.kr, .co.kr과 .kr 같은 포함관계는 순서 중요!
 const tldList = [
+  '.ac.kr',
+  '.go.kr',
+  '.or.kr',
   '.co.kr',
   '.kr',
   '.com',
@@ -11,6 +14,11 @@ const tldList = [
   '.jp',
   '.us',
   '.cn',
+  '.org',
+  '.gov',
+  '.edu',
+  '.info',
+  '.biz',
 ];
 
 const getMainDomain = () => {
@@ -26,14 +34,14 @@ const getMainDomain = () => {
 };
 
 export const setCookie = (advertiserId, cookieKey, value) => {
-  jsCookie.set(`emf.${advertiserId}.${cookieKey}`, value, {
+  jsCookie.set(`emf.${advertiserId}.${cookieKey}.v5`, value, {
     expires: 30,
     domain: getMainDomain(),
   });
 };
 
 export const getCookie = (advertiserId, cookieKey) => {
-  return jsCookie.get(`emf.${advertiserId}.${cookieKey}`, {
+  return jsCookie.get(`emf.${advertiserId}.${cookieKey}.v5`, {
     domain: getMainDomain(),
   });
 };

@@ -4,7 +4,7 @@ const subDomain = process.env.CALL === 'beta' ? 'beta-' : '';
 
 const callTrackServer = (type, queryObject) => {
   const img = new Image();
-  const encodedQuery = ['ctype=v50'];
+  const encodedQuery = ['ctype=v5'];
   Object.entries(queryObject).forEach(([key, value]) => {
     encodedQuery.push(`${key}=${EncodeURI[value]}`);
   });
