@@ -2,17 +2,9 @@ import queryString from 'query-string';
 import state from '@@state';
 import { setCookie, getCookie } from '@module/HandleCookie';
 import callTrackSever from '@module/CallTrackServer';
+import { NONE, EKAMS } from '@constant/Common';
 
 const { configs } = state;
-
-const NONE = 'none';
-
-// const ekamsConfig = {
-//   key: 'EKAMS',
-//   sendQueryKey: 'cekams',
-//   cookieKey: 'ekams',
-//   partialMatch: [/^\D+(\.\d+){5}$/g],
-// };
 
 const inflowCall = (advertiserId /* , args */) => {
   const query = queryString.parse(window.location.search);
@@ -96,8 +88,8 @@ const inflowCall = (advertiserId /* , args */) => {
   const currentTime = new Date().getTime();
   const cekams = `${queryEkams || NONE}_${currentTime}`;
   sendQuery.cekams = cekams;
-  sendQueryKeyToCookieKey.cekams = 'ekams';
-  const ekamsInCookie = getCookie(advertiserId, 'ekams');
+  sendQueryKeyToCookieKey.cekams = EKAMS;
+  const ekamsInCookie = getCookie(advertiserId, EKAMS);
   let ekamsLength = 0;
   let isEqualLatest = false;
   let isEqualEkams = false;
@@ -111,7 +103,7 @@ const inflowCall = (advertiserId /* , args */) => {
     isEqualEkams = ltEkams && ltEkams !== NONE && ltEkams === queryEkams;
   } else {
     // ekams 쿠기가 없다는 것은 첫 접근이므로 그냥 저장
-    setCookie(advertiserId, 'ekams', cekams);
+    setCookie(advertiserId, EKAMS, cekams);
   }
 
   if (queryEkams) {
@@ -151,7 +143,9 @@ const inflowCall = (advertiserId /* , args */) => {
       setCookie(advertiserId, cookieKey, changeCookies.join('|'));
     }
   );
-  callTrackSever('click', sendQuery);
+
+  sendQuery.ad = advertiserId;
+  callTrackSever('click', advertiserId, sendQuery);
 };
 
 export default inflowCall;

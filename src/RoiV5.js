@@ -2,6 +2,7 @@ import state from '@@state';
 import errorNotify from '@module/ErrorNotify';
 import init from './lib/feature/Init';
 import inflowCall from './lib/feature/InflowCall';
+import convCall from './lib/feature/convCall';
 import './lib/polyfill/object.entries';
 import './lib/polyfill/array.prototype.find';
 import './lib/polyfill/array.prototype.includes';
@@ -28,12 +29,15 @@ const callMethod = (callType, advertiserId, args) => {
     case 'inflow':
       inflowCall(advertiserId, args);
       break;
+    case 'conv':
+      convCall(advertiserId, args);
+      break;
     default:
       errorNotify(`'${callType}'은 존재하지 않는 전환 타입입니다.`);
   }
 };
 
-const EmfV5 = (callType, advertiserId, args) => {
+const EmfV5 = (callType, advertiserId, args = {}) => {
   if (initScript(callType, advertiserId, args)) {
     callMethod(callType, advertiserId, args);
   }

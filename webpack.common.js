@@ -41,6 +41,7 @@ module.exports = {
   resolve: {
     alias: {
       '@@state': path.resolve(__dirname, 'src/state/state.js'),
+      '@constant': path.resolve(__dirname, 'src/lib/constant'),
       '@util': path.resolve(__dirname, 'src/lib/util'),
       '@module': path.resolve(__dirname, 'src/lib/module'),
     },
