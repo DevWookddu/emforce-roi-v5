@@ -33,10 +33,11 @@ const getMainDomain = () => {
   return includeDot ? hostname.substr(lastDotIndex) : `.${hostname}`;
 };
 
-export const setCookie = (advertiserId, cookieKey, value) => {
+export const setCookie = (advertiserId, cookieKey, value, option = {}) => {
   jsCookie.set(`emf.${advertiserId}.${cookieKey}.v5`, value, {
     expires: 30,
     domain: getMainDomain(),
+    ...option,
   });
 };
 
