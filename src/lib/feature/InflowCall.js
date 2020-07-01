@@ -22,7 +22,7 @@ const inflowCall = (advertiserId /* , args */) => {
   let existTrackQueryOneAllSame = false;
 
   // inflow 호출 가능한 상태인지
-  let isCallCondition = !!queryEkams || config.requireInflowQuery === true;
+  let isCallCondition = !!queryEkams || config.requiredInflowQuery === false;
   const { trackQueryKeyList } = config;
   trackQueryKeyList.forEach((elmList) => {
     const currentValidateQueryKey = {}; // 보낼 쿼리의 값들을 지정, 하나라도 만족 안할 경우 NONE 처리.

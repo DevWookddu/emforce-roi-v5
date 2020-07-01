@@ -54,6 +54,7 @@ const convCall = (advertiserId, args) => {
       );
     });
   });
+
   sendQuery.adv_id = advertiserId;
   sendQuery.ekams = ekams;
   sendQuery.allekams = allekams;

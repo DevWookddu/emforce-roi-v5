@@ -1,7 +1,7 @@
 const state = {
+  queue: [],
   scriptLoading: {},
   configs: {},
-  queue: [],
 };
 
 export default state;
