@@ -5,11 +5,14 @@ import state from '@@state';
 
 const { configs } = state;
 
+const DUPL_PREFIX = 'emfV5AdvConvId';
+
 const isDuplicateConv = (config, emfCampaign, advConversionId, currentTime) => {
   const duplTimeObjByCampaignType = config?.duplicateTime[emfCampaign] || {};
   const defaultDuplTime = duplTimeObjByCampaignType.default;
   const duplTimeByAdvConversionId = duplTimeObjByCampaignType[advConversionId];
-  const prevConvTime = localStorage.getItem(advConversionId);
+  const duplStorageKey = `${DUPL_PREFIX}.${advConversionId}`;
+  const prevConvTime = localStorage.getItem(duplStorageKey);
   if (
     prevConvTime &&
     (currentTime - Number(prevConvTime)) / 1000 <
@@ -17,7 +20,7 @@ const isDuplicateConv = (config, emfCampaign, advConversionId, currentTime) => {
   ) {
     return true;
   }
-  localStorage.setItem(advConversionId, currentTime);
+  localStorage.setItem(duplStorageKey, currentTime);
   return false;
 };
 
