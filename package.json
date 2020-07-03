@@ -5,7 +5,10 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=beta webpack-dev-server --config webpack.dev.js",
-    "build": "cross-env NODE_ENV=production webpack --config webpack.dist.js & cross-env NODE_ENV=beta webpack --config webpack.dist.js"
+    "build:beta": "cross-env NODE_ENV=beta webpack --config webpack.dist.js",
+    "upload:beta": "npm run build:beta & cross-env NODE_ENV=beta node aws-deploy",
+    "build:prod": "cross-env NODE_ENV=production webpack --config webpack.dist.js",
+    "upload:prod": "npm run build:prod & cross-env NODE_ENV=production node aws-deploy"
   },
   "repository": {
     "type": "git",
@@ -30,9 +33,11 @@
     "@babel/cli": "^7.10.1",
     "@babel/core": "^7.10.2",
     "@babel/preset-env": "^7.10.2",
+    "aws-sdk": "^2.709.0",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "copy-webpack-plugin": "^6.0.2",
+    "dotenv": "^8.2.0",
     "cross-env": "^7.0.2",
     "eslint": "^7.2.0",
     "eslint-config-airbnb-base": "^14.2.0",
