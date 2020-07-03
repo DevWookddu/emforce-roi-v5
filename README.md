@@ -25,7 +25,7 @@ npm install emforce_roi_v5
 if (w.EmfV5)return;v=w.EmfV5=function(){v.queue.push(arguments)};
 v.queue=[];e=d.createElement(t);e.src=s;e.async=!0;
 o=d.getElementsByTagName(t)[0];o.parentNode.insertBefore(e,o);
-})(window, document, 'script', 'https://analytics.emforce.co.kr/emforce-roi-v5.js');
+})(window, document, 'script', 'https://analytics.emforce.co.kr/conversion/v5/analytics.js');
 ```
 
 모듈
@@ -47,6 +47,27 @@ EmfV5('inflow', '[advertiser_id]');
 
 // 전환
 EmfV5('conv', '[advertiser_id]', { ... });
+```
+
+## Command
+
+```
+// build script
+npm run build:[beta|prod]
+
+// upload script
+npm run upload:[beta|prod]
+```
+
+## AWS Config
+
+```
+// aws upload config file
+.env.aws
+
+// content
+aws_access_key_id=ABCDEFGHIJKLMNOPQRSTUVWXYZ
+aws_secret_access_key=ABCDEFGHIJKLMNOPQRSTUVWXYZ
 ```
 
 ## 사용 문의
