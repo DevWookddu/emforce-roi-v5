@@ -33,7 +33,7 @@ const setScriptCacheTime = (advertiserId, scriptCacheTime) => {
 
 const loadScript = (advertiserId, scriptCacheTime) => {
   const script = document.createElement('script');
-  script.src = `${ANALYTICS_PATH}/config/conversion/${advertiserId}/conf.js?t=${scriptCacheTime}`;
+  script.src = `${ANALYTICS_PATH}/config/conversion/v5/${advertiserId}/conf.js?t=${scriptCacheTime}`;
   script.type = 'text/javascript';
   script.async = true;
   script.onerror = () => {
