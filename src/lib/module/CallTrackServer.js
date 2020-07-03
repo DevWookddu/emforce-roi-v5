@@ -19,7 +19,7 @@ const httpGetCall = (path, queryObject) => {
 
 const httpPostCall = (path, queryObject) => {
   const xhr = new XMLHttpRequest();
-  xhr.open('PUT', path);
+  xhr.open('POST', path);
   xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
   xhr.withCredentials = true;
   xhr.send(JSON.stringify(queryObject));
