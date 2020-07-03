@@ -1,5 +1,7 @@
 import state from '@@state';
 import errorNotify from '@module/ErrorNotify';
+import { getCookie } from '@module/HandleCookie';
+import { EUUID, NONE } from '@constant/Common';
 import init from './lib/feature/Init';
 import inflowCall from './lib/feature/InflowCall';
 import convCall from './lib/feature/convCall';
@@ -41,6 +43,14 @@ const EmfV5 = (callType, advertiserId, args = {}) => {
   if (initScript(callType, advertiserId, args)) {
     callMethod(callType, advertiserId, args);
   }
+};
+
+EmfV5.getEUUID = (advertiserId) => {
+  const euuid = getCookie(advertiserId, EUUID);
+  if (euuid) {
+    return euuid;
+  }
+  return NONE;
 };
 
 EmfV5.loadedScript = (advertiserId) => {
