@@ -144,7 +144,7 @@ const inflowCall = (advertiserId /* , args */) => {
     }
   );
 
-  sendQuery.ad = advertiserId;
+  sendQuery.adv_id = advertiserId;
   sendQuery.ad_ref = document.referrer;
   callTrackSever('click', advertiserId, sendQuery);
 };
