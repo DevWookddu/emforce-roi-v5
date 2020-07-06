@@ -9,7 +9,7 @@ const httpGetCall = (path, queryObject) => {
   });
   const src = `${path}?${encodedQuery.join('&')}`;
   // IE GET Method Request Max Size 2,048 Bytes
-  if (src.length < 1024 * 2) {
+  if (src.length > 1024 * 2) {
     return false;
   }
   const img = new Image();
