@@ -2,7 +2,7 @@
 const webpack = require('webpack');
 const path = require('path');
 
-let filename = 'emforce-roi-v5.js';
+let filename = 'analytics.js';
 const plugins = [];
 const isBeta = process.env.NODE_ENV === 'beta';
 if (isBeta) {

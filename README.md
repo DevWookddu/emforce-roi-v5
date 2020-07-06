@@ -5,7 +5,7 @@
 ## Install
 
 ```
-npm install emforce_roi_v5
+npm install emforce-roi-v5
 ```
 
 ## IE 지원
@@ -36,7 +36,7 @@ const EmfV5 = require('emforce-roi-v5');
 // or es6
 import EmfV5 from 'emforce-roi-v5';
 // or global => window.EmfV5
-import 'emforce-roi-v5/dist/emforce-roi-v5.js';
+import 'emforce-roi-v5';
 ```
 
 ## 호출 방식

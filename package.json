@@ -1,8 +1,8 @@
 {
   "name": "emforce-roi-v5",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "eMFORCE ROI Tracking Script v5",
-  "main": "./src/EmfV5.js",
+  "main": "./dist/analytics.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=beta webpack-dev-server --config webpack.dev.js",
     "test": "webpack-dev-server --config webpack.test.js",
