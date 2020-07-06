@@ -52,10 +52,16 @@ EmfV5('conv', '[advertiser_id]', { ... });
 ## Command
 
 ```
-// build script
+// dev
+npm run dev
+
+// script async load test
+npm run test
+
+// build
 npm run build:[beta|prod]
 
-// upload script
+// upload
 npm run upload:[beta|prod]
 ```
 

@@ -5,9 +5,10 @@ const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
   mode: 'development',
+  entry: './src/dev/index.js',
   plugins: [
     new HtmlWebpackPlugin({
-      template: './demo.html',
+      template: './index.html',
     }),
   ],
   devtool: 'eval-source-map',

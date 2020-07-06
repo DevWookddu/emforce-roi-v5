@@ -15,7 +15,7 @@ if (isBeta) {
 }
 
 module.exports = {
-  entry: './src/RoiV5.js',
+  entry: './src/EmfV5.js',
   output: {
     filename,
     path: path.resolve(__dirname, './dist'),

@@ -45,6 +45,12 @@ const EmfV5 = (callType, advertiserId, args = {}) => {
   }
 };
 
+if (window?.EmfV5?.queue?.length) {
+  window.EmfV5.queue.forEach(([callType, advertiserId, args]) => {
+    EmfV5(callType, advertiserId, args);
+  });
+}
+
 EmfV5.getEUUID = (advertiserId) => {
   const euuid = getCookie(advertiserId, EUUID);
   if (euuid) {
@@ -71,18 +77,14 @@ EmfV5.loadedScript = (advertiserId) => {
   });
 };
 
-if (window?.EmfV5?.queue?.length) {
-  window.EmfV5.queue.forEach(([callType, advertiserId, args]) => {
-    EmfV5(callType, advertiserId, args);
-  });
-}
-
 if (typeof define === 'function' && define.amd) {
   define(() => {
     return EmfV5;
   });
-} else if (typeof module !== 'undefined' && module.exports) {
+} else if (typeof module === 'object' && module.exports) {
   module.exports = EmfV5;
 } else {
   window.EmfV5 = EmfV5;
 }
+
+export default EmfV5;

@@ -1,10 +1,11 @@
 {
-  "name": "emforce_roi_v5",
+  "name": "emforce-roi-v5",
   "version": "0.1.0",
   "description": "eMFORCE ROI Tracking Script v5",
-  "main": "src/index.js",
+  "main": "./src/EmfV5.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=beta webpack-dev-server --config webpack.dev.js",
+    "test": "webpack-dev-server --config webpack.test.js",
     "build:beta": "cross-env NODE_ENV=beta webpack --config webpack.dist.js",
     "upload:beta": "npm run build:beta & cross-env NODE_ENV=beta node aws-deploy",
     "build:prod": "cross-env NODE_ENV=production webpack --config webpack.dist.js",
