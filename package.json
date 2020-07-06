@@ -1,6 +1,6 @@
 {
   "name": "emforce-roi-v5",
-  "version": "0.1.1",
+  "version": "0.1.5",
   "description": "eMFORCE ROI Tracking Script v5",
   "main": "./dist/analytics.js",
   "scripts": {
