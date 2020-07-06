@@ -15,7 +15,6 @@ if (isBeta) {
 }
 
 module.exports = {
-  entry: './src/EmfV5.js',
   output: {
     filename,
     path: path.resolve(__dirname, './dist'),

@@ -18,7 +18,7 @@ const s3 = new AWS.S3({
 });
 
 const jsFile = fs.readFileSync(
-  path.resolve(__dirname, 'dist', `${PREFIX}emforce-roi-v5.js`),
+  path.resolve(__dirname, 'dist', `${PREFIX}analytics.js`),
   'utf8'
 );
 
