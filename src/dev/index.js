@@ -1,4 +1,4 @@
-import EmfV5 from '../index';
+import EmfV5 from '../EmfV5';
 
 EmfV5('inflow', '1038');
 EmfV5('conv', '1038', {

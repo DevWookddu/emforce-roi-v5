@@ -1,6 +1,6 @@
 import { EKAMS, NONE } from '@constant/Common';
 import { getCookie } from '@module/HandleCookie';
-import callTrackSever from '@module/CallTrackServer';
+import callCollectorServer from '@module/CallCollectorServer';
 import state from '@@state';
 
 const { configs } = state;
@@ -67,7 +67,7 @@ const convCall = (advertiserId, args) => {
     advConversionId,
     currentTime
   );
-  callTrackSever('conv', advertiserId, sendQuery);
+  callCollectorServer('conv', advertiserId, sendQuery);
 };
 
 export default convCall;

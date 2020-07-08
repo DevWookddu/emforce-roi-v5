@@ -8,13 +8,8 @@ const httpGetCall = (path, queryObject) => {
     return `${key}=${EncodeURI(JSON.stringify(value))}`;
   });
   const src = `${path}?${encodedQuery.join('&')}`;
-  // IE GET Method Request Max Size 2,048 Bytes
-  if (src.length > 1024 * 2) {
-    return false;
-  }
   const img = new Image();
   img.src = src;
-  return true;
 };
 
 const httpPostCall = (path, queryObject) => {
@@ -25,18 +20,21 @@ const httpPostCall = (path, queryObject) => {
   xhr.send(JSON.stringify(queryObject));
 };
 
-const callTrackServer = (type, advertiserId, queryObject) => {
+const callCollectorServer = (type, advertiserId, queryObject) => {
   const path = `${API_PATH}/collector/${type}`;
   const cloneQuery = {
     ...queryObject,
     ctype: 'v5',
     euuid: getCookie(advertiserId, EUUID),
   };
-
-  // Get 방식 호출 불가시에, post 방식 호출
-  if (httpGetCall(path, cloneQuery) === false) {
-    httpPostCall(path, cloneQuery);
+  switch (type) {
+    case 'conv':
+      httpPostCall(path, cloneQuery);
+      break;
+    case 'click':
+    default:
+      httpGetCall(path, cloneQuery);
   }
 };
 
-export default callTrackServer;
+export default callCollectorServer;

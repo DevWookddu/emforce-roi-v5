@@ -1,7 +1,7 @@
 import queryString from 'query-string';
 import state from '@@state';
 import { setCookie, getCookie } from '@module/HandleCookie';
-import callTrackSever from '@module/CallTrackServer';
+import callCollectorServer from '@module/CallCollectorServer';
 import { NONE, EKAMS } from '@constant/Common';
 
 const { configs } = state;
@@ -146,7 +146,7 @@ const inflowCall = (advertiserId /* , args */) => {
 
   sendQuery.adv_id = advertiserId;
   sendQuery.ad_ref = document.referrer;
-  callTrackSever('click', advertiserId, sendQuery);
+  callCollectorServer('click', advertiserId, sendQuery);
 };
 
 export default inflowCall;

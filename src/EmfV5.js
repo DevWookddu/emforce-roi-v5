@@ -86,3 +86,5 @@ if (typeof define === 'function' && define.amd) {
 } else if (window) {
   window.EmfV5 = EmfV5;
 }
+
+export default EmfV5;
