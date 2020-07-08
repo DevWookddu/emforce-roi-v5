@@ -83,8 +83,6 @@ if (typeof define === 'function' && define.amd) {
   });
 } else if (typeof module === 'object' && module.exports) {
   module.exports = EmfV5;
-} else {
+} else if (window) {
   window.EmfV5 = EmfV5;
 }
-
-export default EmfV5;
