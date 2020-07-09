@@ -5,7 +5,7 @@ import { API_PATH } from '@constant/ApiURL';
 
 const httpGetCall = (path, queryObject) => {
   const encodedQuery = Object.entries(queryObject).map(([key, value]) => {
-    return `${key}=${EncodeURI(JSON.stringify(value))}`;
+    return `${key}=${EncodeURI(value)}`;
   });
   const src = `${path}?${encodedQuery.join('&')}`;
   const img = new Image();
@@ -26,6 +26,7 @@ const callCollectorServer = (type, advertiserId, queryObject) => {
     ...queryObject,
     ctype: 'v5',
     euuid: getCookie(advertiserId, EUUID),
+    local_at: new Date().getTime(),
   };
   switch (type) {
     case 'conv':
