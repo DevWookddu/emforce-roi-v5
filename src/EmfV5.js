@@ -1,6 +1,6 @@
 import state from '@@state';
 import errorNotify from '@module/ErrorNotify';
-import { getCookie } from '@module/HandleCookie';
+import { getCookie, getEkamsCookiesJson } from '@module/HandleCookie';
 import { EUUID, NONE } from '@constant/Common';
 import init from './lib/feature/Init';
 import inflowCall from './lib/feature/InflowCall';
@@ -40,6 +40,11 @@ const callMethod = (callType, advertiserId, args) => {
 };
 
 const EmfV5 = (callType, advertiserId, args = {}) => {
+  if (!Number(advertiserId)) {
+    errorNotify(
+      `광고주 아이디 오류 => EKAMS가 없거나, 잘못된 광고주 아이디. [${advertiserId}]`
+    );
+  }
   if (initScript(callType, advertiserId, args)) {
     callMethod(callType, advertiserId, args);
   }
@@ -50,6 +55,24 @@ if (window?.EmfV5?.queue?.length) {
     EmfV5(callType, advertiserId, args);
   });
 }
+
+Object.defineProperty(EmfV5, 'advId', {
+  get() {
+    const ekamsJson = getEkamsCookiesJson();
+    let advId = NONE;
+    let latestTime = 0;
+    Object.entries(ekamsJson).forEach(([key, value]) => {
+      const latestAdvId = key.split('.')[1];
+      const latestEkams = value.split('|').pop() || `${NONE}_0`;
+      const time = Number(latestEkams.split('_')[1]);
+      if (latestTime < time) {
+        latestTime = time;
+        advId = latestAdvId;
+      }
+    });
+    return advId;
+  },
+});
 
 EmfV5.getEUUID = (advertiserId) => {
   const euuid = getCookie(advertiserId, EUUID);

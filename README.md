@@ -49,6 +49,16 @@ EmfV5('inflow', '[advertiser_id]');
 EmfV5('conv', '[advertiser_id]', { ... });
 ```
 
+## Get
+
+```js
+// 광고주 ID
+EmfV5.advId; // String
+
+// UUID
+EmfV5.getUUID(advertiserId); // String
+```
+
 ## Command
 
 ```

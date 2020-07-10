@@ -46,3 +46,12 @@ export const getCookie = (advertiserId, cookieKey) => {
     domain: getMainDomain(),
   });
 };
+
+export const getEkamsCookiesJson = () => {
+  return Object.entries(jsCookie.get() || {})
+    .filter(([key]) => key.includes('ekams'))
+    .reduce((acc, [key, value]) => {
+      acc[key] = value;
+      return acc;
+    }, {});
+};
