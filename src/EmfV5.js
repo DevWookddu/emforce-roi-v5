@@ -75,11 +75,7 @@ Object.defineProperty(EmfV5, 'advId', {
 });
 
 EmfV5.getEUUID = (advertiserId) => {
-  const euuid = getCookie(advertiserId, EUUID);
-  if (euuid) {
-    return euuid;
-  }
-  return NONE;
+  return getCookie(advertiserId, EUUID) || NONE;
 };
 
 EmfV5.loadedScript = (advertiserId) => {
