@@ -101,9 +101,6 @@ const inflowCall = (advertiserId /* , args */) => {
     const latestEkams = ekamsList[latestIndex].split('_');
     [ltEkams] = latestEkams;
     isEqualEkams = ltEkams && ltEkams !== NONE && ltEkams === queryEkams;
-  } else {
-    // ekams 쿠기가 없다는 것은 첫 접근이므로 그냥 저장
-    setCookie(advertiserId, EKAMS, cekams);
   }
 
   if (queryEkams) {
