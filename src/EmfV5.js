@@ -56,6 +56,7 @@ if (window?.EmfV5?.queue?.length) {
   });
 }
 
+// EmfV5.advId
 Object.defineProperty(EmfV5, 'advId', {
   get() {
     const ekamsJson = getEkamsCookiesJson();

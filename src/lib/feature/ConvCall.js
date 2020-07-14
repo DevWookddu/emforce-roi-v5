@@ -51,10 +51,8 @@ const convCall = (advertiserId, args) => {
   config.trackQueryKeyList.forEach((elmList) => {
     elmList.forEach((elm) => {
       const { key, sendQueryKey, cookieKey } = elm;
-      sendQuery[sendQueryKey || key] = getCookie(
-        advertiserId,
-        cookieKey || key
-      );
+      sendQuery[sendQueryKey || key] =
+        getCookie(advertiserId, cookieKey || key) || NONE;
     });
   });
 
