@@ -24,13 +24,16 @@ const tldList = [
 const getMainDomain = () => {
   const { hostname } = window.location;
   const findedTld = tldList.find((tld) => hostname.includes(tld));
-  const hostnameWithoutTld = hostname.substr(
-    0,
-    hostname.length - findedTld.length
-  );
-  const lastDotIndex = hostnameWithoutTld.lastIndexOf('.');
-  const includeDot = lastDotIndex > -1;
-  return includeDot ? hostname.substr(lastDotIndex) : `.${hostname}`;
+  if (findedTld) {
+    const hostnameWithoutTld = hostname.substr(
+      0,
+      hostname.length - findedTld.length
+    );
+    const lastDotIndex = hostnameWithoutTld.lastIndexOf('.');
+    const includeDot = lastDotIndex > -1;
+    return includeDot ? hostname.substr(lastDotIndex) : `.${hostname}`;
+  }
+  return hostname;
 };
 
 export const setCookie = (advertiserId, cookieKey, value, option = {}) => {
