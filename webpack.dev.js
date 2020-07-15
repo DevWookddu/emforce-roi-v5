@@ -5,7 +5,7 @@ const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
   mode: 'development',
-  entry: './src/dev/index.js',
+  entry: './test/dev.js',
   plugins: [
     new HtmlWebpackPlugin({
       template: './index.html',

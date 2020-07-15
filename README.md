@@ -56,7 +56,42 @@ EmfV5('conv', '[advertiser_id]', { ... });
 EmfV5.advId; // String
 
 // UUID
-EmfV5.getUUID(advertiserId); // String
+EmfV5.getEUUID(advertiserId); // String
+```
+
+## Use Storage
+
+```js
+(function(w, l, k, i, s, p, v){
+  if (w.EmfV5Storage)return;v=w.EmfV5Storage={};
+  v.setData=function(o){l.setItem(k,s(o));};
+  v.getItems=function(){return p(l.getItem(i)||'[]');}
+  v.addItem=function(o){var t=v.getItems();t.push(o);l.setItem(i,s(t));};
+  v.get=function(){var d=p(l.getItem(k)||'{}');var m=v.getItems();if(m.length){d.order_items=m}return d;};
+  v.clear=function(){l.setItem(i,s([]));l.setItem(k,s({}));};
+})(window, localStorage, 'EmfV5Data', 'EmfV5Items', JSON.stringify, JSON.parse);
+
+// 기존 저장 된 데이터 모두 제거
+EmfV5Storage.clear();
+
+// 커스텀 데이터 저장(덮어씌움)
+EmfV5Storage.setData({
+  adv_conversion_id: 99,
+  total_price: 50000
+});
+
+// 아이템 추가
+EmfV5Storage.addItem({
+  item: '파우더',
+  item_category: '화장품',
+  item_price: '5000',
+  item_quantity: '10'
+}); // 상품 추가
+
+// 저장 된 데이터 가져오기
+EmfV5Storage.get();
+
+EmfV5('conv', '1234', EmfV5Storage.get());
 ```
 
 ## Command

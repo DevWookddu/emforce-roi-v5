@@ -104,7 +104,10 @@ EmfV5.loadedScript = (advertiserId) => {
       if (aIsInflow) {
         return 1;
       }
-      return -1;
+      if (bIsInflow) {
+        return -1;
+      }
+      return 0;
     })
     .forEach(([callType, advId, args]) => {
       EmfV5(callType, advId, args);
