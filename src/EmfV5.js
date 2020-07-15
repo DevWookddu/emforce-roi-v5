@@ -11,6 +11,8 @@ import './lib/polyfill/array.prototype.includes';
 import './lib/polyfill/string.prototype.includes';
 
 const { scriptLoading, configs, queue } = state;
+const CALL_TYPE_INFLOW = 'inflow';
+const CALL_TYPE_CONV = 'conv';
 
 const initScript = (callType, advertiserId, args) => {
   const isScriptLoading = !!scriptLoading[advertiserId];
@@ -28,10 +30,10 @@ const initScript = (callType, advertiserId, args) => {
 
 const callMethod = (callType, advertiserId, args) => {
   switch (callType) {
-    case 'inflow':
+    case CALL_TYPE_INFLOW:
       inflowCall(advertiserId, args);
       break;
-    case 'conv':
+    case CALL_TYPE_CONV:
       convCall(advertiserId, args);
       break;
     default:
@@ -92,9 +94,21 @@ EmfV5.loadedScript = (advertiserId) => {
     }
   });
   queue.splice(0, queue.length - 1, ...notCallList);
-  callList.forEach(([callType, advId, args]) => {
-    EmfV5(callType, advId, args);
-  });
+  callList
+    .sort((a, b) => {
+      const aIsInflow = a[0] === CALL_TYPE_INFLOW;
+      const bIsInflow = b[0] === CALL_TYPE_INFLOW;
+      if (!aIsInflow && !bIsInflow) {
+        return 0;
+      }
+      if (aIsInflow) {
+        return 1;
+      }
+      return -1;
+    })
+    .forEach(([callType, advId, args]) => {
+      EmfV5(callType, advId, args);
+    });
 };
 
 if (typeof define === 'function' && define.amd) {
