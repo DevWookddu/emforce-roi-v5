@@ -8,7 +8,7 @@
 // v = EmfV5Storage
 (function(w, l, k, i, s, p, v){
   if (w.EmfV5Storage)return;v=w.EmfV5Storage={};
-  function merge(a,b){var r = p(s(a||{}));Object.keys(b).forEach(function(c){r[c]=b[c];});return r;}
+  function merge(a,b){var r=p(s(a||{}));b = b||{};Object.keys(b).forEach(function(c){r[c]=b[c];});return r;}
   v.get=function(){var d=p(l.getItem(k)||'{}');var m=v.getItems();if(m.length){d.order_items=m}return d;};
   v.addData=function(o){l.setItem(k,v.merge(o))};
   v.addItem=function(o){var t=v.getItems();t.push(o);l.setItem(i,s(t));};
