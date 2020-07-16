@@ -27,7 +27,7 @@ const inflowCall = (advertiserId /* , args */) => {
   trackQueryKeyList.forEach((elmList) => {
     const currentValidateQueryKey = {}; // 보낼 쿼리의 값들을 지정, 하나라도 만족 안할 경우 NONE 처리.
     const allSameValues = []; // 현재 요소 배열의 값이 이전값과 같은지 체크하기 위한 배열
-    let isSatisfied = elmList.length === 0 ? false : true; // 각 키의 값들이 모두 만족하였는지 판단.
+    let isSatisfied = elmList.length !== 0; // 각 키의 값들이 모두 만족하였는지 판단.
     elmList.forEach((elm) => {
       const { key, exactlyMatch, partialMatch } = elm;
       let { sendQueryKey, cookieKey } = elm;
