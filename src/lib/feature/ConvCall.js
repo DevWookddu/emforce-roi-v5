@@ -10,7 +10,7 @@ const DUPL_PREFIX = 'emfV5AdvConvId';
 
 const isDuplicateConv = (config, emfCampaign, advConversionId, currentTime) => {
   const duplTimeObjByCampaignType = config?.duplicateTime[emfCampaign] || {};
-  const defaultDuplTime = duplTimeObjByCampaignType.default;
+  const defaultDuplTime = duplTimeObjByCampaignType.default || 5;
   const duplTimeByAdvConversionId = duplTimeObjByCampaignType[advConversionId];
   const duplStorageKey = `${DUPL_PREFIX}.${advConversionId}`;
   const prevConvTime = localStorage.getItem(duplStorageKey);
