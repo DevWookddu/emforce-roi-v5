@@ -1,5 +1,6 @@
 import { EKAMS, NONE } from '@constant/Common';
 import { getCookie } from '@module/HandleCookie';
+import errorNotify from '@module/ErrorNotify';
 import callCollectorServer from '@module/CallCollectorServer';
 import state from '@@state';
 
@@ -30,6 +31,12 @@ const convCall = (advertiserId, args) => {
     emf_campaign: emfCampaign,
     adv_conversion_id: advConversionId,
   } = args;
+
+  if (!advConversionId) {
+    errorNotify('adv_conversion_id가 누락되었습니다.');
+    return;
+  }
+
   const sendQuery = {
     ...args,
     emf_campaign: emfCampaign,

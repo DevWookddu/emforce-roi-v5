@@ -4,7 +4,7 @@ import UUID from '@util/UUID';
 import { EUUID } from '@constant/Common';
 import { ANALYTICS_PATH } from '@constant/ApiURL';
 
-const SCRIPT_CACHE_KEY = 'scriptCache';
+const SCRIPT_CACHE_KEY = 'emfV5ScriptCache';
 
 const checkUuidCookie = (advertiserId) => {
   const uuid = getCookie(advertiserId, EUUID);

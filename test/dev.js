@@ -9,7 +9,6 @@ EmfV5('conv', '1038', {
   conv_val_1: '서울',
   reg_chk: 'true',
 });
-
 EmfV5('conv', '1038', EmfV5Storage.get());
 EmfV5('conv', '1038', {
   emf_campaign: 'emf_ecommerce',
