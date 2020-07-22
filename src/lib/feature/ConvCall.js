@@ -1,4 +1,4 @@
-import { EKAMS, NONE } from '@constant/Common';
+import { EKAMS, NONE, ADV_CONV_ID_PREFIX } from '@constant/Common';
 import { getCookie } from '@module/HandleCookie';
 import errorNotify from '@module/ErrorNotify';
 import callCollectorServer from '@module/CallCollectorServer';
@@ -6,13 +6,11 @@ import state from '@@state';
 
 const { configs } = state;
 
-const DUPL_PREFIX = 'emfV5AdvConvId';
-
 const isDuplicateConv = (config, emfCampaign, advConversionId, currentTime) => {
   const duplTimeObjByCampaignType = config?.duplicateTime[emfCampaign] || {};
   const defaultDuplTime = duplTimeObjByCampaignType.default || 5;
   const duplTimeByAdvConversionId = duplTimeObjByCampaignType[advConversionId];
-  const duplStorageKey = `${DUPL_PREFIX}.${advConversionId}`;
+  const duplStorageKey = `${ADV_CONV_ID_PREFIX}.${advConversionId}`;
   const prevConvTime = localStorage.getItem(duplStorageKey);
   if (
     prevConvTime &&

@@ -1,7 +1,7 @@
 import state from '@@state';
 import errorNotify from '@module/ErrorNotify';
 import { getCookie, getEkamsCookiesJson } from '@module/HandleCookie';
-import { EUUID, NONE } from '@constant/Common';
+import { EUUID, NONE, ADV_CONV_ID_PREFIX } from '@constant/Common';
 import init from './lib/feature/Init';
 import inflowCall from './lib/feature/InflowCall';
 import convCall from './lib/feature/convCall';
@@ -13,6 +13,18 @@ import './lib/polyfill/string.prototype.includes';
 const { scriptLoading, configs, queue } = state;
 const CALL_TYPE_INFLOW = 'inflow';
 const CALL_TYPE_CONV = 'conv';
+
+(function clearTimedOutConvTime() {
+  const now = new Date().getTime();
+  Object.keys(localStorage).forEach((key) => {
+    if (key.includes(ADV_CONV_ID_PREFIX)) {
+      const calledTime = Number(localStorage.getItem(key));
+      if (now - calledTime > 5 * 1000) {
+        localStorage.removeItem(key);
+      }
+    }
+  });
+})();
 
 const initScript = (callType, advertiserId, args) => {
   const isScriptLoading = !!scriptLoading[advertiserId];
