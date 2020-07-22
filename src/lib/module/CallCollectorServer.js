@@ -23,7 +23,13 @@ const httpPostCall = (path, queryObject) => {
 const callCollectorServer = (type, advertiserId, queryObject) => {
   const path = `${API_PATH}/collector/${type}`;
   const cloneQuery = {
-    ...queryObject,
+    ...Object.entries(queryObject).reduce(
+      (acc, [key, value]) => ({
+        ...acc,
+        ...(value !== undefined ? { [key]: value } : {}),
+      }),
+      {}
+    ),
     ctype: 'v5',
     euuid: getCookie(advertiserId, EUUID),
     local_at: new Date().getTime(),

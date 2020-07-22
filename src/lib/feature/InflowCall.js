@@ -143,6 +143,7 @@ const inflowCall = (advertiserId /* , args */) => {
     }
   );
 
+  sendQuery.n_rank = query.n_rank;
   sendQuery.adv_id = advertiserId;
   sendQuery.ad_ref = document.referrer;
   callCollectorServer('click', advertiserId, sendQuery);
