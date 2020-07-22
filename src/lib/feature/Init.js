@@ -44,10 +44,10 @@ const loadScript = (advertiserId, scriptCacheTime) => {
     document.body.appendChild(script);
   };
 
-  if (document.readyState === 'complete') {
-    appendScript();
-  } else {
+  if (document.readyState === 'loading') {
     window.addEventListener('DOMContentLoaded', appendScript);
+  } else {
+    appendScript();
   }
 };
 
