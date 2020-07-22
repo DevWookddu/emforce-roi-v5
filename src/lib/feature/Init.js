@@ -40,12 +40,14 @@ const loadScript = (advertiserId, scriptCacheTime) => {
     errorNotify(`${advertiserId} 광고주의 config 스크립트 로드 실패`);
   };
 
-  if (document.readyState === 'complete') {
+  const appendScript = () => {
     document.body.appendChild(script);
+  };
+
+  if (document.readyState === 'complete') {
+    appendScript();
   } else {
-    window.addEventListener('DOMContentLoaded', () => {
-      document.body.appendChild(script);
-    });
+    window.addEventListener('DOMContentLoaded', appendScript);
   }
 };
 
