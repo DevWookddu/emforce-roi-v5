@@ -39,7 +39,11 @@ const loadScript = (advertiserId, scriptCacheTime) => {
   script.onerror = () => {
     errorNotify(`${advertiserId} 광고주의 config 스크립트 로드 실패`);
   };
-  document.body.appendChild(script);
+
+  // IE 버그
+  setTimeout(() => {
+    document.body.appendChild(script);
+  }, 0);
 };
 
 export default (advertiserId) => {
