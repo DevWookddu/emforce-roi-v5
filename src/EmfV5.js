@@ -72,7 +72,7 @@ if (window?.EmfV5?.queue?.length) {
 
 // EmfV5.state
 Object.defineProperty(EmfV5, 'state', {
-  get: () => state,
+  get: () => JSON.parse(JSON.stringify(state)),
 });
 
 // EmfV5.advId
