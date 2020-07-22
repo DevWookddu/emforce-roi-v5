@@ -70,7 +70,10 @@ if (window?.EmfV5?.queue?.length) {
   });
 }
 
-EmfV5.state = state;
+// EmfV5.state
+Object.defineProperty(EmfV5, 'state', {
+  get: () => state,
+});
 
 // EmfV5.advId
 Object.defineProperty(EmfV5, 'advId', {
@@ -107,7 +110,8 @@ EmfV5.loadedScript = (advertiserId) => {
       notCallList.push(args);
     }
   });
-  queue.splice(0, queue.length - 1, ...notCallList);
+
+  queue.splice(0, queue.length, ...notCallList);
   callList
     .sort((a, b) => {
       const aIsInflow = a[0] === CALL_TYPE_INFLOW;
