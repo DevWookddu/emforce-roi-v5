@@ -40,10 +40,13 @@ const loadScript = (advertiserId, scriptCacheTime) => {
     errorNotify(`${advertiserId} 광고주의 config 스크립트 로드 실패`);
   };
 
-  // IE 버그
-  setTimeout(() => {
+  if (document.readyState === 'complete') {
     document.body.appendChild(script);
-  }, 0);
+  } else {
+    window.addEventListener('DOMContentLoaded', () => {
+      document.body.appendChild(script);
+    });
+  }
 };
 
 export default (advertiserId) => {
