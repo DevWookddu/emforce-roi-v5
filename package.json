@@ -28,7 +28,8 @@
   "homepage": "https://github.com/DevWookddu/eMFORCE_ROI_V5#readme",
   "dependencies": {
     "js-cookie": "^2.2.1",
-    "query-string": "^5.1.1"
+    "query-string": "^5.1.1",
+    "sha256": "^0.2.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.1",

@@ -14,12 +14,21 @@ const { scriptLoading, configs, queue } = state;
 const CALL_TYPE_INFLOW = 'inflow';
 const CALL_TYPE_CONV = 'conv';
 
+// 전환 시간 데이터 초기화(최대 한달간 유지)
+const MONTH_MS = 1000 * 60 * 60 * 24 * 30;
 (function clearTimedOutConvTime() {
   const now = new Date().getTime();
   Object.keys(localStorage).forEach((key) => {
     if (key.includes(ADV_CONV_ID_PREFIX)) {
-      const calledTime = Number(localStorage.getItem(key));
-      if (now - calledTime > 5 * 1000) {
+      const convObj = JSON.parse(localStorage.getItem(key));
+      Object.entries(convObj).forEach(([sha256key, convTime]) => {
+        if (now - convTime > MONTH_MS) {
+          delete convObj[sha256key];
+        }
+      });
+      if (Object.keys(convObj).length) {
+        localStorage.setItem(key, JSON.stringify(convObj));
+      } else {
         localStorage.removeItem(key);
       }
     }
