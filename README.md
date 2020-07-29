@@ -64,10 +64,10 @@ EmfV5.getEUUID(advertiserId); // String
 ```js
 (function(w, l, k, i, s, p, v){
   if (w.EmfV5Storage)return;v=w.EmfV5Storage={};
-  function merge(a,b){var r=p(s(a||{}));Object.keys(b).forEach(function(c){r[c]=b[c];});return r;}
-  v.get=function(){var d=p(l.getItem(k)||'{}');var m=v.getItems();if(m.length){d.order_items=m}return d;};
-  v.addData=function(o){l.setItem(k,v.merge(o))};v.addItem=function(o){var t=v.getItems();t.push(o);l.setItem(i,s(t));};
-  v.getItems=function(){return p(l.getItem(i)||'[]');};v.merge=function(g){return merge(v.get(),g);}
+  function merge(a,b){var r=p(s(a||'{}'));Object.keys(b).forEach(function(c){r[c]=b[c];});return r;}
+  v.get=function(){var d=p(l.getItem(k)||'{}');var m=v.getOrderItems();if(m.length){d.order_items=m}return d;};
+  v.addData=function(o){l.setItem(k,s(v.merge(o)))};v.addOrderItem=function(o){var t=v.getOrderItems();t.push(o);l.setItem(i,s(t));};
+  v.getOrderItems=function(){return p(l.getItem(i)||'[]');};v.merge=function(g){return merge(v.get(),g);}
   v.clear=function(){l.setItem(i,s([]));l.setItem(k,s({}));};
 })(window, localStorage, 'EmfV5Data', 'EmfV5Items', JSON.stringify, JSON.parse);
 
@@ -80,28 +80,30 @@ EmfV5Storage.addData({
   total_price: 50000
 });
 
-// 아이템 추가
-EmfV5Storage.addItem({
-  item: '파우더',
-  item_category: '화장품',
-  item_price: '5000',
-  item_quantity: '10'
+// 상품 추가
+EmfV5Storage.addOrderItem({
+  item_id : '{상품 ID}',         // 상품 ID - 옵션
+  item_name: '{상품명}',         // 상품명 - 옵션
+  item_category: '{카테고리}',   // 상품 카테고리 - 옵션
+  item_quantity: '{구매수량}',   // 구매 수량 - 옵션
+  item_price: '{구매금액}',      // 구매 금액 - 옵션
 }); // 상품 추가
 
 // 스토리지에 저장 된 데이터 가져오기
 EmfV5Storage.get();
 
-// 스토리지에 저장 된 데이터와 전달한 객체가 병합 된 데이터 리턴(같은 키는 전달 한 객체 데이터로 변경)
+// 스토리지에 저장 된 데이터와 전달한 객체가 병합 된 객체 리턴(같은 키는 전달 한 객체 데이터로 변경)
 // 스토리지에 변화는 없음.
 EmfV5Storage.merge({
-  mergeItem: 'ohora'
+  new_key: 'new',
+  total_price: 70000
 });
 
 // EmfV5 Use Example
 EmfV5('conv', '1234', EmfV5Storage.get());
 
 EmfV5('conv', '1234', EmfV5Storage.merge({
-  addData: 'add'
+  new_data: 'merge'
 }));
 ```
 
