@@ -1,5 +1,6 @@
 /* eslint-disable no-bitwise */
-export default (str) => {
+export default (val) => {
+  const str = `${val || ''}`;
   if (str !== '' && str !== undefined) {
     let s0;
     let s;
