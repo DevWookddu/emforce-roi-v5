@@ -1,5 +1,4 @@
 export default {
-  queue: [],
   scriptLoading: {
     '[advertiser_id]': true,
     1033: true, // 광고주아이디가 키로 있을 경우, 현재 config 스크립트 호출 요청된 상태

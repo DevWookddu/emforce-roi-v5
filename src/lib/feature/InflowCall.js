@@ -6,8 +6,8 @@ import { NONE, EKAMS } from '@constant/Common';
 
 const { configs } = state;
 
-const inflowCall = (advertiserId /* , args */) => {
-  const query = queryString.parse(window.location.search);
+const inflowCall = ({ advertiserId, inflowInfo }) => {
+  const query = queryString.parse(inflowInfo.query);
   const queryEkams = query.EKAMS;
   const config = configs[advertiserId];
   let sendQuery = {}; // click 서버에 보내는 쿼리 목록
@@ -145,7 +145,7 @@ const inflowCall = (advertiserId /* , args */) => {
 
   sendQuery.n_rank = query.n_rank;
   sendQuery.adv_id = advertiserId;
-  sendQuery.ad_ref = document.referrer;
+  sendQuery.ad_ref = inflowInfo.referrer;
   callCollectorServer('click', advertiserId, sendQuery);
 };
 

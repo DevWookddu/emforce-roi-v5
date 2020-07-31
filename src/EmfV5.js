@@ -1,5 +1,6 @@
 import state from '@@state';
 import errorNotify from '@module/ErrorNotify';
+import { getQueue, setQueue, clearQueue } from '@module/HandleQueue';
 import { getCookie, getEkamsCookiesJson } from '@module/HandleCookie';
 import { EUUID, NONE, ADV_CONV_ID_PREFIX } from '@constant/Common';
 import init from './lib/feature/Init';
@@ -10,7 +11,7 @@ import './lib/polyfill/array.prototype.find';
 import './lib/polyfill/array.prototype.includes';
 import './lib/polyfill/string.prototype.includes';
 
-const { scriptLoading, configs, queue } = state;
+const { scriptLoading, configs } = state;
 const CALL_TYPE_INFLOW = 'inflow';
 const CALL_TYPE_CONV = 'conv';
 
@@ -35,48 +36,79 @@ const MONTH_MS = 1000 * 60 * 60 * 24 * 30;
   });
 })();
 
-const initScript = (callType, advertiserId, args) => {
+const initScript = ({ advertiserId }) => {
   const isScriptLoading = !!scriptLoading[advertiserId];
   const isLoadedScript = configs[advertiserId];
   if (!isLoadedScript) {
-    queue.push([callType, advertiserId, args]);
     if (!isScriptLoading) {
       scriptLoading[advertiserId] = true;
-      init(advertiserId);
+      // Event Loop Delay
+      setTimeout(() => {
+        console.log(`initScript => ${advertiserId}`);
+        init(advertiserId);
+      }, 0);
     }
     return false;
   }
   return true;
 };
 
-const callMethod = (callType, advertiserId, args) => {
+const callMethod = ({ callType, advertiserId, args, inflowInfo }) => {
   switch (callType) {
     case CALL_TYPE_INFLOW:
-      inflowCall(advertiserId, args);
+      inflowCall({ advertiserId, args, inflowInfo });
       break;
     case CALL_TYPE_CONV:
-      convCall(advertiserId, args);
+      convCall({ advertiserId, args });
       break;
     default:
       errorNotify(`'${callType}'은 존재하지 않는 전환 타입입니다.`);
   }
 };
 
-const EmfV5 = (callType, advertiserId, args = {}) => {
+const EmfV5 = (callType, advertiserId, args = {}, info) => {
+  const inflowInfo = info || {
+    referrer: document.referrer,
+    query: window.location.search,
+  };
   if (!Number(advertiserId)) {
     errorNotify(
       `광고주 아이디 오류 => EKAMS가 없거나, 잘못된 광고주 아이디. [${advertiserId}]`
     );
   }
-  if (initScript(callType, advertiserId, args)) {
-    callMethod(callType, advertiserId, args);
+  if (!initScript({ advertiserId })) {
+    const q = getQueue(advertiserId);
+    q.push([callType, advertiserId, args, inflowInfo]);
+    setQueue(advertiserId, q);
+    console.log(`[광고주 ${advertiserId}] queue => `, q);
+  } else {
+    callMethod({ callType, advertiserId, args, inflowInfo });
   }
 };
 
 if (window?.EmfV5?.queue?.length) {
-  window.EmfV5.queue.forEach(([callType, advertiserId, args]) => {
-    EmfV5(callType, advertiserId, args);
-  });
+  window.EmfV5.queue
+    // window.EmfV5.queue는 inflow 최우선으로 정렬
+    .sort((a, b) => {
+      const aIsInflow = a[0] === CALL_TYPE_INFLOW;
+      const bIsInflow = b[0] === CALL_TYPE_INFLOW;
+      if (!aIsInflow && !bIsInflow) {
+        return 0;
+      }
+      if (aIsInflow) {
+        return -1;
+      }
+      if (bIsInflow) {
+        return 1;
+      }
+      return 0;
+    })
+    .forEach(([callType, advertiserId, args]) => {
+      EmfV5(callType, advertiserId, args, {
+        referrer: document.referrer,
+        query: window.location.search,
+      });
+    });
 }
 
 // EmfV5.state
@@ -109,36 +141,11 @@ EmfV5.getEUUID = (advertiserId) => {
 
 EmfV5.loadedScript = (advertiserId) => {
   configs[advertiserId] = window.EmfV5Config[advertiserId];
-  const callList = [];
-  const notCallList = [];
-  queue.forEach((args) => {
-    const advId = args[1];
-    if (Number(advId) === Number(advertiserId)) {
-      callList.push(args);
-    } else {
-      notCallList.push(args);
-    }
+  getQueue(advertiserId).forEach(([callType, advId, args, inflowInfo]) => {
+    EmfV5(callType, advId, args, inflowInfo);
   });
-
-  queue.splice(0, queue.length, ...notCallList);
-  callList
-    .sort((a, b) => {
-      const aIsInflow = a[0] === CALL_TYPE_INFLOW;
-      const bIsInflow = b[0] === CALL_TYPE_INFLOW;
-      if (!aIsInflow && !bIsInflow) {
-        return 0;
-      }
-      if (aIsInflow) {
-        return 1;
-      }
-      if (bIsInflow) {
-        return -1;
-      }
-      return 0;
-    })
-    .forEach(([callType, advId, args]) => {
-      EmfV5(callType, advId, args);
-    });
+  console.log(`loadedScript => ${advertiserId}`);
+  clearQueue(advertiserId);
 };
 
 if (typeof define === 'function' && define.amd) {

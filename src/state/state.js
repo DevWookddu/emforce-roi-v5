@@ -1,5 +1,4 @@
 const state = {
-  queue: [],
   scriptLoading: {},
   configs: {},
 };

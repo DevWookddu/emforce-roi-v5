@@ -38,7 +38,7 @@ const isDuplicateConv = ({
   return false;
 };
 
-const convCall = (advertiserId, args) => {
+const convCall = ({ advertiserId, args }) => {
   const config = configs[advertiserId];
   const argsString = JSON.stringify(args);
   const {
